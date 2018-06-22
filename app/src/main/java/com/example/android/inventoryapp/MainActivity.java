@@ -1,20 +1,23 @@
 package com.example.android.inventoryapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import com.example.android.inventoryapp.StoreContract.ProductEntry;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.result_text_view)
+    @BindView(R.id.empty_title_text)
     TextView textView;
 
     private StoreDbHelper dbHelper;
@@ -26,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         dbHelper = new StoreDbHelper(this);
+    }
+
+    @OnClick(R.id.fab)
+    public void addProduct(View view){
+        Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+        startActivity(intent);
     }
 
     @Override
