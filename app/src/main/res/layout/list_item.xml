@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="#2B3D4D"
+        android:textColor="@color/editorColorPrimaryDark"
         tools:text="Product"/>
 
     <RelativeLayout
@@ -26,20 +26,21 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#AEB6BD"
+            android:textColor="@color/instructions"
             tools:text="1 PLN"/>
 
         <TextView
             android:id="@+id/quantity_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="4dp"
+            android:paddingRight="@dimen/inner_margin"
             android:layout_below="@id/price"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            tools:text="Quantity:"/>
+            tools:text="Quantity:"
+            android:paddingEnd="@dimen/inner_margin" />
         <TextView
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
@@ -50,16 +51,18 @@
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            tools:text="5"/>
+            tools:text="5"
+            android:layout_toEndOf="@id/quantity_label" />
 
         <Button
             android:id="@+id/sale_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="SALE"
+            android:text="@string/sale"
             android:focusable="false"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </LinearLayout>

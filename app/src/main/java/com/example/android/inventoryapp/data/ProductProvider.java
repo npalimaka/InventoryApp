@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.example.android.inventoryapp.R;
 import com.example.android.inventoryapp.data.StoreContract.ProductEntry;
 
 import java.net.URI;
@@ -109,14 +110,14 @@ public class ProductProvider extends ContentProvider{
 
         String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
         if (name == null) {
-            throw new IllegalArgumentException("Product requires a name");
+            throw new IllegalArgumentException(getContext().getResources().getString(R.string.valid_name));
         }
         Integer price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
         if (price != null && !ProductEntry.isValidPrice(price)) {
             throw new IllegalArgumentException("Product requires valid price");
         }
         Integer quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        if (quantity != null && quantity < 0) {
+        if (quantity != 0 && quantity < 0) {
             throw new IllegalArgumentException("Product requires valid quantity");
         }
         String supplier = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
@@ -164,6 +165,20 @@ public class ProductProvider extends ContentProvider{
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        final int match = URI_MATCHER.match(uri);
+        switch (match){
+            case PRODUCTS:
+                return updateProduct(uri, values, selection, selectionArgs);
+            case PRODUCT_ID:
+                selection = ProductEntry.COLUMN_ID + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateProduct(uri, values, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+    }
+
+    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_NAME)) {
             String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
             if (name == null) {

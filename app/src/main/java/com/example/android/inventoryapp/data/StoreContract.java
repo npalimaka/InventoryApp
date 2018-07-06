@@ -7,7 +7,9 @@ import android.provider.BaseColumns;
 /**
  * This class represents the table and its columns
  */
-public class StoreContract {
+public final class StoreContract {
+
+    private StoreContract(){}
 
     public static final String CONTENT_AUTHORITY = "com.example.android.inventoryapp";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -33,10 +35,7 @@ public class StoreContract {
         public static final String COLUMN_SUPPLIER_PHONE_NUMBER = "Supplier_Phone_Number";
 
         public static boolean isValidPrice(int price) {
-            if (price >= 0) {
-                return true;
-            }
-            return false;
+            return price >= 0;
         }
     }
 }

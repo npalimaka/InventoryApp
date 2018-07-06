@@ -43,6 +43,7 @@ public class ProductCursorAdapter extends CursorAdapter {
                 ProductEntry.COLUMN_PRODUCT_NAME));
         name.setText(nameString);
         String priceString = cursor.getString(cursor.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_PRICE));
+        //setting a string instead of a 0 when price is not given
         if (TextUtils.isEmpty(priceString)) {
             priceString = context.getString(R.string.price_not_specified);
         }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,11 +20,9 @@
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            style="@style/InputFieldsStyle"
             android:orientation="vertical"
-            android:paddingLeft="4dp">
+            android:paddingLeft="@dimen/inner_margin">
 
             <!-- Name field -->
             <EditText
@@ -58,16 +55,14 @@
 
         <!-- Input field -->
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            style="@style/InputFieldsStyle"
             android:orientation="horizontal">
 
             <!-- Quantity increment-decrement -->
             <ImageButton
                 android:id="@+id/decrement"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="@dimen/quantity_button_size"
+                android:layout_height="@dimen/quantity_button_size"
                 android:contentDescription="@string/left_arrow_button"
                 android:src="@drawable/baseline_keyboard_arrow_left_white_18" />
 
@@ -75,16 +70,16 @@
                 android:id="@+id/edit_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="@dimen/eight"
+                android:layout_marginRight="@dimen/eight"
                 android:hint="@string/hint_quantity"
                 android:inputType="number"
-                android:paddingBottom="16dp" />
+                android:paddingBottom="@dimen/activity_margin" />
 
             <ImageButton
                 android:id="@+id/increment"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="@dimen/quantity_button_size"
+                android:layout_height="@dimen/quantity_button_size"
                 android:contentDescription="@string/right_arrow_button"
                 android:src="@drawable/baseline_keyboard_arrow_right_white_18" />
         </LinearLayout>
@@ -93,7 +88,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/activity_margin"
         android:orientation="horizontal">
 
         <!-- Label -->
@@ -103,37 +98,31 @@
 
         <!-- Input fields -->
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            style="@style/InputFieldsStyle"
+            android:paddingLeft="@dimen/inner_margin">
             <!--Supplier name field-->
             <EditText
                 android:id="@+id/supplier_name"
                 style="@style/EditorFieldStyle"
-                android:inputType="text"
-                android:hint="@string/hint_name"/>
+                android:hint="@string/hint_name"
+                android:inputType="text" />
             <!-- Phone field -->
             <EditText
                 android:id="@+id/edit_phone"
-                android:layout_below="@id/supplier_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/supplier_name"
                 android:hint="@string/hint_phone"
                 android:inputType="text" />
 
             <!-- Call button -->
             <ImageButton
                 android:id="@+id/call_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                style="@style/RoundButtonStyle"
                 android:layout_below="@id/supplier_name"
                 android:layout_toEndOf="@id/edit_phone"
                 android:layout_toRightOf="@id/edit_phone"
-                android:background="@drawable/button_background"
                 android:contentDescription="@string/phone_button"
-                android:padding="6dp"
                 android:src="@drawable/call_button" />
         </RelativeLayout>
     </LinearLayout>
@@ -146,25 +135,19 @@
 
         <!-- Label -->
         <TextView
-            style="@style/CategoryStyle"
             android:id="@+id/delete_label"
+            style="@style/CategoryStyle"
             android:text="@string/delete" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
+            style="@style/InputFieldsStyle"
             android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/delete_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_background"
-            android:contentDescription="@string/delete_button"
-            android:padding="6dp"
-            android:src="@drawable/button" />
+            <ImageButton
+                android:id="@+id/delete_button"
+                style="@style/RoundButtonStyle"
+                android:contentDescription="@string/delete_button"
+                android:src="@drawable/button" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

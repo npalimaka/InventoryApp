@@ -16,7 +16,7 @@ public class StoreDbHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + ProductEntry.TABLE_NAME
             + " (" + ProductEntry.COLUMN_ID + " INTEGER PRIMARY KEY," + ProductEntry.COLUMN_PRODUCT_NAME
             + " TEXT," + ProductEntry.COLUMN_PRODUCT_PRICE + " REAL," + ProductEntry.COLUMN_PRODUCT_QUANTITY
-            + " INTEGER," + ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
+            + " INTEGER," + ProductEntry.COLUMN_SUPPLIER_NAME + " TEXT," + ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER
             + " TEXT);";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ProductEntry.TABLE_NAME;
 

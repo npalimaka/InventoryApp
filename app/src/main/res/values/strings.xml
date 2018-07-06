@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">InventoryApp</string>
-    <string name="empty_view_title_text">Your list is empty...</string>
-    <string name="empty_view_subtitle_text">Press the button to add a product. Required fileds are product name, price and quantity.</string>
+    <string name="empty_view_title_text">Your list is empty…</string>
+    <string name="empty_view_subtitle_text">Press the button to add a product. \nRequired fields are product name, quantity and supplier details.</string>
     <string name="title_activity_editor">EditorActivity</string>
     <string name="product">Product</string>
     <string name="hint_name">Name</string>
@@ -36,4 +36,8 @@
     <string name="call_not_permitted">Permission to call not granted</string>
     <string name="sale_successful">Product sold!</string>
     <string name="sale_failed">Out of stock!</string>
+    <string name="valid_name">Product requires a name</string>
+    <string name="valid_supplier">Supplier requires valid name</string>
+    <string name="valid_phone">Product requires valid phone</string>
+    <string name="sale">SALE</string>
 </resources>

@@ -54,6 +54,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     TextView deleteLabel;
     private Uri currentProductUri;
     private boolean productHasChanged;
+    private boolean providedInvalidDetails;
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -100,7 +101,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         switch (item.getItemId()) {
             case R.id.action_save:
                 saveProduct();
-                finish();
+                if (!providedInvalidDetails) {
+                    finish();
+                }
                 return true;
             case android.R.id.home:
                 if (!productHasChanged) {
@@ -125,31 +128,40 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void saveProduct() {
         String nameString = nameEditText.getText().toString().trim();
         String priceString = priceEditText.getText().toString().trim();
-        int priceInt = 0;
-
-        if (!TextUtils.isEmpty(priceString)) {
-            priceInt = Integer.parseInt(priceString);
-        }
-
         String quantityString = quantityEditText.getText().toString().trim();
-        int quantityInt = 0;
-
-        if (!TextUtils.isEmpty(quantityString)) {
-            quantityInt = Integer.parseInt(quantityString);
-        }
         String supplierString = supplierEditText.getText().toString().trim();
         String phoneString = phoneEditText.getText().toString().trim();
 
+        /* check for invalid details
+        * no need to check price since it can be null
+        * setting default quantity
+        */
+        int quantityInt = 0;
+        if (!TextUtils.isEmpty(quantityString)) {
+            quantityInt = Integer.parseInt(quantityString);
+        }
         if (currentProductUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 quantityInt == 0 && TextUtils.isEmpty(supplierString) &&
                 TextUtils.isEmpty(phoneString)) {
             return;
+        } else if (TextUtils.isEmpty(nameString)) {
+            providedInvalidDetails = true;
+            Toast.makeText(this, getString(R.string.valid_name), Toast.LENGTH_SHORT).show();
+            return;
+        } else  if(TextUtils.isEmpty(supplierString)){
+            providedInvalidDetails = true;
+            Toast.makeText(this, getString(R.string.valid_supplier), Toast.LENGTH_SHORT).show();
+            return;
+        } else if(TextUtils.isEmpty(phoneString)){
+            providedInvalidDetails = true;
+            Toast.makeText(this, getString(R.string.valid_phone), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, nameString);
-        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, priceInt);
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, priceString);
         values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityInt);
         values.put(ProductEntry.COLUMN_SUPPLIER_NAME, supplierString);
         values.put(ProductEntry.COLUMN_SUPPLIER_PHONE_NUMBER, phoneString);
@@ -163,6 +175,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             } else {
                 Toast.makeText(this, getString(R.string.editor_insert_product_successful),
                         Toast.LENGTH_SHORT).show();
+                providedInvalidDetails = false;
             }
             //in case updating an existing product current uri used
         } else {
@@ -173,6 +186,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             } else {
                 Toast.makeText(this, getString(R.string.editor_update_product_successful),
                         Toast.LENGTH_SHORT).show();
+                providedInvalidDetails = false;
             }
         }
     }
@@ -180,7 +194,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        if(currentProductUri != null) {
+        if (currentProductUri != null) {
             String[] projection = {
                     ProductEntry.COLUMN_ID,
                     ProductEntry.COLUMN_PRODUCT_NAME,
@@ -196,7 +210,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     null,
                     null,
                     null);
-        }else{
+        } else {
             return null;
         }
     }
@@ -333,8 +347,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneEditText.getText().toString().trim()));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             Log.v(EditorActivity.class.getName(), getString(R.string.call_not_permitted));
-           startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneEditText.getText().toString().trim())));
-           return;
+            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneEditText.getText().toString().trim())));
+            return;
         }
         startActivity(intent);
     }
