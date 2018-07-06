@@ -39,7 +39,7 @@
                 android:id="@+id/edit_price"
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_price"
-                android:inputType="textCapWords" />
+                android:inputType="number" />
         </LinearLayout>
     </LinearLayout>
 
@@ -107,15 +107,20 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:paddingLeft="4dp">
-
+            <!--Supplier name field-->
+            <EditText
+                android:id="@+id/supplier_name"
+                style="@style/EditorFieldStyle"
+                android:inputType="text"
+                android:hint="@string/hint_name"/>
             <!-- Phone field -->
             <EditText
                 android:id="@+id/edit_phone"
-                style="@style/EditorFieldStyle"
+                android:layout_below="@id/supplier_name"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_phone"
-                android:inputType="phone" />
+                android:inputType="text" />
 
             <!-- Call button -->
             <ImageButton
@@ -123,6 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:layout_below="@id/supplier_name"
                 android:layout_toEndOf="@id/edit_phone"
                 android:layout_toRightOf="@id/edit_phone"
                 android:background="@drawable/button_background"
@@ -141,6 +147,7 @@
         <!-- Label -->
         <TextView
             style="@style/CategoryStyle"
+            android:id="@+id/delete_label"
             android:text="@string/delete" />
 
         <LinearLayout

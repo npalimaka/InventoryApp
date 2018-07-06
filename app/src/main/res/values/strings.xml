@@ -15,4 +15,25 @@
     <string name="phone_button">White phone button</string>
     <string name="right_arrow_button">White right arrow button</string>
     <string name="left_arrow_button">White left arrow button</string>
+    <string name="sad_app_image">Sad app image</string>
+    <string name="add_product">Add Product</string>
+    <string name="edit_product">Edit Product</string>
+    <string name="action_save">Save</string>
+    <string name="editor_insert_product_failed">Error while saving</string>
+    <string name="editor_insert_product_successful">Product saved</string>
+    <string name="editor_update_product_failed">Error while updating</string>
+    <string name="editor_update_product_successful">Product updated</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="editor_delete_product_successful">Product deleted</string>
+    <string name="editor_delete_product_failed">Error while deleting product</string>
+    <string name="delete_dialog_msg">Delete this product?</string>
+    <string name="cancel">Cancel</string>
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+    <string name="action_delete_all_entries">Delete All Entries</string>
+    <string name="price_not_specified">Price not specified</string>
+    <string name="call_not_permitted">Permission to call not granted</string>
+    <string name="sale_successful">Product sold!</string>
+    <string name="sale_failed">Out of stock!</string>
 </resources>

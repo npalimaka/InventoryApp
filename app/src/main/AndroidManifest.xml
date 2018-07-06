@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.inventoryapp">
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +18,16 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:label="@string/title_activity_editor"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/EditorTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <provider
+            android:authorities="com.example.android.inventoryapp"
+            android:name=".data.ProductProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

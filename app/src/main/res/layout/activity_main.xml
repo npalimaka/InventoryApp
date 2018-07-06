@@ -10,7 +10,8 @@
         android:id="@+id/products_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/activity_margin"/>
+        android:padding="@dimen/activity_margin"
+        android:fastScrollEnabled="false"/>
     <!-- Empty view for the list -->
     <RelativeLayout
         android:id="@+id/empty_view"
@@ -23,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/empty_list"/>
+            android:src="@drawable/empty_list"
+            android:contentDescription="@string/sad_app_image" />
 
         <TextView
             android:id="@+id/empty_title_text"
@@ -43,7 +45,7 @@
             android:layout_below="@+id/empty_title_text"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif"
-            android:paddingTop="8dp"
+            android:padding="8dp"
             android:text="@string/empty_view_subtitle_text"
             android:textAppearance="?android:textAppearanceSmall"
             android:textColor="#A2AAB0"/>
