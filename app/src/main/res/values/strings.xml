@@ -40,4 +40,5 @@
     <string name="valid_supplier">Supplier requires valid name</string>
     <string name="valid_phone">Product requires valid phone</string>
     <string name="sale">SALE</string>
+    <string name="permission_explanation">This permission is needed to call the supplier</string>
 </resources>

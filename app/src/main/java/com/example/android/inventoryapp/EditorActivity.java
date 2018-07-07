@@ -12,8 +12,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +40,7 @@ import com.example.android.inventoryapp.data.StoreContract.ProductEntry;
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int EXISTING_PRODUCT_LOADER = 0;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_SUPPLIER = 3;
     @BindView(R.id.edit_name)
     EditText nameEditText;
     @BindView(R.id.edit_price)
@@ -133,9 +136,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String phoneString = phoneEditText.getText().toString().trim();
 
         /* check for invalid details
-        * no need to check price since it can be null
-        * setting default quantity
-        */
+         * no need to check price since it can be null
+         * setting default quantity
+         */
         int quantityInt = 0;
         if (!TextUtils.isEmpty(quantityString)) {
             quantityInt = Integer.parseInt(quantityString);
@@ -149,11 +152,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             providedInvalidDetails = true;
             Toast.makeText(this, getString(R.string.valid_name), Toast.LENGTH_SHORT).show();
             return;
-        } else  if(TextUtils.isEmpty(supplierString)){
+        } else if (TextUtils.isEmpty(supplierString)) {
             providedInvalidDetails = true;
             Toast.makeText(this, getString(R.string.valid_supplier), Toast.LENGTH_SHORT).show();
             return;
-        } else if(TextUtils.isEmpty(phoneString)){
+        } else if (TextUtils.isEmpty(phoneString)) {
             providedInvalidDetails = true;
             Toast.makeText(this, getString(R.string.valid_phone), Toast.LENGTH_SHORT).show();
             return;
@@ -344,12 +347,42 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @OnClick(R.id.call_button)
     public void callTheSupplier() {
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneEditText.getText().toString().trim()));
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            Log.v(EditorActivity.class.getName(), getString(R.string.call_not_permitted));
-            startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneEditText.getText().toString().trim())));
-            return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //Permission is not grunted, checking should we show explanation
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CALL_PHONE)) {
+                Toast.makeText(this, getString(R.string.permission_explanation),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},
+                        MY_PERMISSIONS_REQUEST_CALL_SUPPLIER);
+            }
+        } else {
+            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneEditText.getText().toString().trim())));
         }
-        startActivity(intent);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_SUPPLIER: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    callTheSupplier();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, getString(R.string.call_not_permitted),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
